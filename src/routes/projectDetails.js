@@ -19,10 +19,10 @@ router.get('/:id', async (req, res) => {
         }
         const projectTasks = await TaskSchema.find({ ProjectId: req.params.id }); // Fixed typo: 'findBy' to 'find'
         const teamMembers = await teamMembersSchema.find({ projectId: req.params.id }); 
-        const resource = await Resource.find({projectId: req.params.id})// Fixed typo: 'findby' to 'find'
+        const resources = await Resource.find({projectId: req.params.id})// Fixed typo: 'findby' to 'find'
 
         // Combine project, team members, and project tasks into a single object
-        const projectData = { project, teamMembers, projectTasks,resource };
+        const projectData = { project, teamMembers, projectTasks,resources };
         
         return res.status(200).json(projectData); // Return the project data
     } catch (err) {
