@@ -11,7 +11,10 @@ const DashboardRoute = require("./routes/Dashboard");
 const Authorization = require("./routes/Auth");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://campusworld.netlify.app/' 
+}));
+
 
 
 app.get('/api/test',async (req, res) => {
