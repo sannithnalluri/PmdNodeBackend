@@ -9,7 +9,7 @@ const TaskSchema = new mongoose.Schema({
     assignee:{type: 'string', required:true},
     assigneeId:{type: 'string', required:true},
     priority:{type:'string',required:true},
-
+    isCompleted:{type:'boolean',default:false},
 });
 
 

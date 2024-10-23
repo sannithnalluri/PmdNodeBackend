@@ -38,6 +38,49 @@ try {
 
 });
 
+router.delete('/:id', async (req, res) => {
+    try {
+        await connectDB(); 
+        console.log('Database connection successful');
+
+        const { id } = req.params; 
+        const project = await projectSchema.findByIdAndDelete(id); 
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" }); 
+        }
+
+        return res.status(200).json({ message: "Project deleted successfully" }); // Success message
+    } catch (err) {
+        console.error("Error deleting project:", err.message);
+        return res.status(500).send('Server Error'); // Return server error
+    }
+});
+
+
+router.patch('/complete/:id', async (req, res) => {
+    try {
+        await connectDB(); // Ensure the database connection
+        console.log('Database connection successful');
+
+        const { id } = req.params; // Get project ID from request parameters
+        const updatedProject = await projectSchema.findByIdAndUpdate(
+            id,
+            { completed: true }, // Set completed to true
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedProject) {
+            return res.status(404).json({ message: "Project not found" }); // Return 404 if project doesn't exist
+        }
+
+        return res.status(200).json(updatedProject); // Return updated project details
+    } catch (err) {
+        console.error("Error updating project:", err.message);
+        return res.status(500).send('Server Error'); // Return server error
+    }
+});
+
 router.get('getby/:id', async (req, res) => {
     try {
         await connectDB(); // Connect to the database
