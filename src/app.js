@@ -11,11 +11,14 @@ const DashboardRoute = require("./routes/Dashboard");
 const Authorization = require("./routes/Auth");
 
 app.use(express.json());
-app.use(cors({
-  origin: 'https://campusworld.netlify.app/' 
-}));
+app.use(cors());
 
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS'); // Allow methods
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow headers
+  next();
+});
 
 app.get('/api/test',async (req, res) => {
     res.status(200).send("OK API Workings");
